@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.exceptions.TraineeNotFoundException;
-import com.model.persistence.trainee.BranchEnum;
 import com.model.persistence.trainee.Trainee;
 import com.model.service.trainee.TraineeService;
 import com.model.service.trainee.TraineeServiceImpl;
@@ -67,10 +66,10 @@ public class TraineeController extends HttpServlet {
 			throws ServletException, IOException {
 			Integer id = Integer.parseInt(request.getParameter("id").trim());
 			String name = request.getParameter("name");
-			String branch = request.getParameter("branch").toUpperCase();
+			String branch = request.getParameter("branch");
 			Double percentage = Double.parseDouble(request.getParameter("percentage"));
 			
-			Trainee trainee = new Trainee(name,BranchEnum.valueOf(branch),percentage);
+			Trainee trainee = new Trainee(name,branch,percentage);
 			
 			if(id==0) {
 				traineeService.addTrainee(trainee);

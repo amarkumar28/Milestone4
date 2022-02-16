@@ -3,15 +3,15 @@ package com.model.persistence.trainee;
 public class Trainee {
 	private int id;
 	private String name;
-	private BranchEnum branch;
+	private String branch;
 	private double percentage;
-	public Trainee(int id, String name, BranchEnum branch, double percentage) {
+	public Trainee(int id, String name, String branch, double percentage) {
 		this.id = id;
 		this.name = name;
 		this.branch = branch;
 		this.percentage = percentage;
 	}
-	public Trainee(String name, BranchEnum branch, double percentage) {
+	public Trainee(String name, String branch, double percentage) {
 		this.name = name;
 		this.branch = branch;
 		this.percentage = percentage;
@@ -22,10 +22,10 @@ public class Trainee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public BranchEnum getBranch() {
+	public String getBranch() {
 		return branch;
 	}
-	public void setBranch(BranchEnum branch) {
+	public void setBranch(String branch) {
 		this.branch = branch;
 	}
 	public double getPercentage() {

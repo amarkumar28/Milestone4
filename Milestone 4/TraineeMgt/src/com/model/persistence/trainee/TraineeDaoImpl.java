@@ -25,10 +25,10 @@ public class TraineeDaoImpl implements TraineeDao{
 	public Trainee addTrainee(Trainee trainee) {
 		try {
 			PreparedStatement insertData = connection
-					.prepareStatement("insert into trainee(" + "name,branch,percentage) values (?,?,?)",
+					.prepareStatement("insert into trainee(trainee_name,branch,Percentage) values(?,?,?)",
 							Statement.RETURN_GENERATED_KEYS);
 			insertData.setString(1, trainee.getName());
-			insertData.setString(2, trainee.getBranch().toString());
+			insertData.setString(2, trainee.getBranch());
 			insertData.setDouble(3, trainee.getPercentage());
 			insertData.executeUpdate();
 			
@@ -59,7 +59,7 @@ public class TraineeDaoImpl implements TraineeDao{
 	public Trainee updateTrainee(int id, Trainee trainee) {
 		try {
 			PreparedStatement updateData = connection.prepareStatement("update trainee set branch=?, percentage=? where id=?");
-			updateData.setString(1, trainee.getBranch().toString());
+			updateData.setString(1, trainee.getBranch());
 			updateData.setDouble(2, trainee.getPercentage());
 			updateData.setInt(3, id);
 			updateData.executeUpdate();
@@ -77,7 +77,7 @@ public class TraineeDaoImpl implements TraineeDao{
 			PreparedStatement statement = connection.prepareStatement("select * from trainee");
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
-				trainee = new Trainee(result.getInt(1), result.getString(2), BranchEnum.valueOf(result.getString(3).toUpperCase()),result.getDouble(4));
+				trainee = new Trainee(result.getInt(1), result.getString(2), result.getString(3),result.getDouble(4));
 				trainees.add(trainee);
 			}
 		}catch(SQLException e) {
@@ -94,7 +94,7 @@ public class TraineeDaoImpl implements TraineeDao{
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
 			if(result.next()) {
-				trainee = new Trainee(result.getInt(1), result.getString(2), BranchEnum.valueOf(result.getString(3).toUpperCase()),result.getDouble(4));
+				trainee = new Trainee(result.getInt(1), result.getString(2), result.getString(3),result.getDouble(4));
 			}else {
 				throw new TraineeNotFoundException("trainee with id= "+id+" is not found");
 			}
